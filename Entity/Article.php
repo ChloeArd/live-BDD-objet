@@ -68,7 +68,7 @@ class Article {
     /**
      * @param string $date_add
      */
-    public function setDateAdd(string $date_add): Article {
+    public function setDateAdd(?string $date_add): Article {
         $this->date_add = $date_add;
         return $this;
     }
