@@ -51,5 +51,41 @@ class ArticleManager {
 
             return $stmt->execute();
         }
+        return false;
+    }
+
+    /**
+     * Insert an Article into the article table.
+     * @param Article $article
+     * @return bool
+     */
+    public function insert(Article $article): bool {
+        if (is_null($article->getId())) { // si l'id est null ou pas null
+            $stmt = $this->db->prepare("
+                INSERT INTO article (title, content) VALUES (:title, :content)
+            ");
+
+            $stmt->bindValue(':title', $article->getTitle());
+            $stmt->bindValue(':content', $article->getContent());
+
+            return $stmt->execute();
+        }
+        return false;
+    }
+
+    /**
+     * Delete an Article
+     * @param Article $article
+     * @return bool
+     */
+    public function delete(Article $article) {
+        if ($article->getId()) { // si l'id est null ou pas null
+            $stmt = $this->db->prepare("
+                DELETE FROM article WHERE id = :id
+            ");
+            $stmt->bindValue(':id', $article->getId());
+            return $stmt->execute();
+        }
+        return false;
     }
 }
